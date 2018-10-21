@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">Add Item</span>
+        <form (ngSubmit)="onSubmit()" class="col s6">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input type="text" placeholder="SKU" [(ngModel)]="item.SKU" name="SKU">
+                    <label>SKU</label>
+                </div>
+                <div class="input-field col s6">
+                    <input type="text" placeholder="Name" [(ngModel)]="item.Name" name="Name">
+                    <label>Name</label>
+                </div>
+                <div class="input-field col s6">
+                    <input type="text" placeholder="Category" [(ngModel)]="item.Category" name="Category">
+                    <label>Category</label>
+                </div>
+                <div class="input-field col s6">
+                    <input type="text" placeholder="Price" [(ngModel)]="item.Price" name="Price">
+                    <label>Price</label>
+                </div>
+                <div class="input-field col s6">
+                    <input type="text" placeholder="Date" [(ngModel)]="item.Date" name="Date">
+                    <label>Date</label>
+                </div>
+                <div *ngIf="currentFileUpload" class="progress">
+                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                        {{progress.percentage}}%</div>
+                </div>
+
+                <label class="btn btn-default"> <input type="file"
+                    (change)="selectFile($event)">
+                </label>
+
+                <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+
+                <input type="submit" value="submit" class="btn">
+            </div>
+        </form>
+    </div>
+</div>

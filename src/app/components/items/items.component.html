@@ -1,0 +1,63 @@
+<div class="container">
+    <div *ngIf="items?.length > 0; else noItems">
+
+
+        <div *ngFor="let item of items">
+            <div class="col s12 m6 L3">
+                <div class="card">
+                    <div class="card-image">
+                        <img id="output" onsubmit="loadFile(event)">
+
+                    </div>
+                    <div class="card-content">
+                        <strong>SKU:</strong> {{item.SKU}} <br> <strong>Name:</strong> {{item.Name}} <br> <strong>Category:</strong> {{item.Category}}<br> <strong>Price:</strong> {{item.Price}}<br> <strong>Date:</strong> {{item.Date}}
+
+                    </div>
+                    <div class="card-action">
+                        <button class="btn-floating btn-large waves-effect waves-light green" (click)="editItem($event, item)"><i class="material-icons">create</i></button>
+
+                        <button class="btn-floating btn-large waves-effect waves-light red" style="margin: 0.5em" (click)="deleteItem($event, item)"><i class="material-icons">delete</i></button>
+
+                    </div>
+                    <div *ngIf="editState && itemToEdit.id == item.id">
+                        <form (ngSubmit)="updateItem(item)">
+                            <div class="row" id="update">
+                                <div class="input-field col s6">
+                                    <input type="text" placeholder="SKU" [(ngModel)]="item.SKU" name="SKU">
+                                </div>
+                                <div class="input-field col s6">
+                                    <input type="text" placeholder="Name" [(ngModel)]="item.Name" name="Name">
+                                </div>
+                                <div class="input-field col s6">
+                                    <input type="text" placeholder="Category" [(ngModel)]="item.Category" name="Category">
+                                </div>
+                                <div class="input-field col s6">
+                                    <input type="text" placeholder="Price" [(ngModel)]="item.Price" name="Price">
+                                </div>
+                                <div class="input-field col s6">
+                                    <input type="text" placeholder="Date" [(ngModel)]="item.Date" name="Date">
+                                </div>
+                                <input type="submit" value="Upadte Item" class="btn orange" (click)="UpdateItem(item)">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #noItems>
+    <hr>
+    <h5>There are no Items Here</h5>
+</ng-template>
+
+<script>
+    var loadFile = function(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('output');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+</script>
