@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/Item';
-import { UploadFileService } from '../../services/upload-file.service';
-import { FileUpload } from 'src/app/models/fileupload';
+
 
 @Component({
   selector: 'app-add-item',
@@ -17,12 +16,9 @@ item: Item = {
   Category: '',
   Price: '',
   Date: '',
-  url: '',
-  selectedFiles: FileList;
-  currentFileUpload: FileUpload;
-  progress: { percentage: number } = { percentage: 0 };
+};
 
-  constructor(private itemService: ItemService,private uploadService: UploadFileService ) { }
+  constructor(private itemService: ItemService) { }
 
   ngOnInit() {
   }
@@ -38,18 +34,5 @@ item: Item = {
       this.item.Date = '';
     }
   }
-  selectFile(event) {
-    this.selectedFiles = event.target.files;
-  }
- 
-  upload() {
-    const file = this.selectedFiles.item(0);
-    this.selectedFiles = undefined;
- 
-    this.currentFileUpload = new FileUpload(file);
-    this.uploadService.pushFileToStorage(this.currentFileUpload, this.progress);
-  }
-
-    
 
 }
